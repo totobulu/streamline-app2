@@ -63,23 +63,24 @@ with tab1:
     feature3 = st.number_input("year")
     X_input = np.array([[feature1, feature2, feature3]])  
 
-    # Load the model from a file
-    with open('rf_model.pkl', 'rb') as model_file:
-        model = pickle.load(model_file)
     
-    # Use the model for prediction
-    y_pred = model.predict(X_input)
-    st.write(f"predicted life expectancy: {y_pred[0]:.2f} years")
+    if st.button("prediction"):
+        # Load the model from a file
+        with open('rf_model.pkl', 'rb') as model_file:
+            model = pickle.load(model_file)
+        # Use the model for prediction
+        y_pred = model.predict(X_input)
+        st.write(f"predicted life expectancy: {y_pred[0]:.2f} years")
 
-    feature_importances = model.feature_importances_
-    importance_df = pd.DataFrame({
-    'Feature': ['GDP per capita', 'Headcount Ratio Upper Middle Income Poverty Line', 'Year'],
-    'Importance': feature_importances
-    })
-    importance_df = importance_df.sort_values(by='Importance', ascending=False)
+        feature_importances = model.feature_importances_
+        importance_df = pd.DataFrame({
+        'Feature': ['GDP per capita', 'Headcount Ratio Upper Middle Income Poverty Line', 'Year'],
+        'Importance': feature_importances
+        })
+        importance_df = importance_df.sort_values(by='Importance', ascending=False)
     
-    fig = px.bar(importance_df, x='Importance', y='Feature', orientation='h', title='Feature Importance')
-    st.plotly_chart(fig)
+        fig = px.bar(importance_df, x='Importance', y='Feature', orientation='h', title='Feature Importance')
+        st.plotly_chart(fig)
 
 
 with tab3:
