@@ -31,16 +31,20 @@ with tab1:
     with col1:
         st.write("mean of life expectancy")
         mean_life_expectancy = filtered_data["Life Expectancy (IHME)"].mean()
+        col1.subheader(f'{mean_life_expectancy:.2f}')
     with col2:
         st.write("Global Median GDP per capita")
         medianGPT = filtered_data["GDP per capita"].median()
+        col2.subheader(f'${medianGPT:,.0f}')
     with col3:
         st.write("Global Poverty Average")
         headcount_ratio_upper_mid_income_povline_mean = filtered_data["headcount_ratio_upper_mid_income_povline"].mean()
+        col3.subheader(f'{headcount_ratio_upper_mid_income_povline_mean:.0f}%')
     with col4:
         st.write("Number of Countries")
         num_countries = len(filtered_data["country"].unique())
-
+        col4.subheader(f"{num_countries:.0f}")
+        
     fig = px.scatter(
                 filtered_data, 
                 x="GDP per capita", 
